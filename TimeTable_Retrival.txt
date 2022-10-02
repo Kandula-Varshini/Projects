@@ -1,0 +1,81 @@
+'''Instructions :
+This program have 2 features to work on :
+1)Attendance details
+2)Time_Table details
+- to know Attendance details click 'a' or 'A' or else click 't' or 'T' for Time Table
+ Case 1- If u enter 'a' or 'A' then it works as a log book and it print absentees and presentees list and
+their count as per the requirement of the user.
+ Case2- If u enter 't' or 'T' , it will ask which day is today?
+ -User has to enter the day then, if the user wants a single period , he has to enter 's' or 'S' and the
+period number.
+ -If user wants the Time Table of entire day he need to enter 'all' or 'ALL'.
+ Before these two cases, the program will automatically show you the period number with
+timings(By default)
+ According to that an user can enter the number of that single period he want, as per the timings
+already shown.'''
+import pandas as pd
+import numpy as np
+def t(path):
+  a=input("Enter which day is today ?").upper()
+  data=pd.read_excel(path)
+  print("Period Timings :")
+  print(data.head(1),"\n") 
+  e=input("Do you need single period(Enter 's') or all periods(Enter 'all')? ").lower()
+  if a=="MON" or a=="MONDAY":
+    a=2
+  if a=="TUE" or a=="TUESDAY":
+    a=3
+  if a=="WED" or a=="WEDNESDAY":
+    a=4
+  if a=="THU" or a=="THURSDAY":
+    a=5
+  if a=="FRI" or a=="FRIDAY":
+    a=6
+  if a=="SAT" or a=="SATURDAY":
+    a=7
+  c=data.head(a).tail(1)
+  if e=="all":
+    print(c,"\n")
+  else:
+    s=int(input("Enter period you want ?"))
+    print(c[s])
+def a():
+  l=[]
+  c=0
+  while(True):
+    f=int(input("Enter your Regd No : "))
+    c=c+1
+    l.append(f)
+    g=input("You want to enter another Regd No?(Enter 'yes' or 'no')").lower()
+    if(g=="no"):
+      break
+    else:
+      continue
+  h=input("Enter 'ab' for absentees or 'pr' for presentees : ").lower()
+  if h=="ab":
+    count=0
+    for i in range(501,600):
+      j=i not in l
+      if j==True:
+        print(i,end=" ")
+        count=count+1
+      else:
+        continue
+    print("\nAbsentees Count : ",count)
+  else:
+    print("Total details : ",l)
+    print("Total number of students present today : ",c)        
+d=input("Do you want timetabe(Enter 't'),else attendence (Enter 'a') : ").lower()
+if(d=="t"):
+  k=input("which section are you from?")
+  if k=="a" or k=="A":
+    path="/content/sample_data/TIME TABLEA.xlsx"
+    t(path)
+  elif k=="b" or k=="B":
+    path="/content/sample_data/TIME TABLE.xlsx"
+    t(path)
+  else:
+    path="/content/sample_data/TIME TABLEC.xlsx"
+    t(path)
+else:
+  a()
