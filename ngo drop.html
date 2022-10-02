@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+var subjectObject = {
+  "vizianagaram": {
+    "paravathipuram": ["oldage homes", "childrens"],
+    "gajapathinagaram": ["oldage homes", "childrens"],
+    "bobbili": ["oldage homes", "childrens"]    
+  },
+
+}
+window.onload = function() {
+  var subjectSel = document.getElementById("subject");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in subjectObject) {
+    subjectSel.options[subjectSel.options.length] = new Option(x, x);
+  }
+  subjectSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in subjectObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = subjectObject[subjectSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+</head>   
+<body bgcolor ="pink">
+
+<h1><marquee>please select the district</marquee></h1>
+<center>
+<form method="post" action="select.html" target="_blank"> 
+district: <select name="subject" id="subject" placeholder="select" required>
+    <option value="" selected="selected">Select district</option>
+  </select>
+  <br><br>
+village: <select name="topic" id="topic" placeholder="select" required>
+    <option value="" selected="selected">Please select village</option>
+  </select>
+  <br><br>
+place to serve: <select name="chapter" id="chapter" placeholder="select" required>
+    <option value="" selected="selected">Please select the </option>
+  </select>
+  <br><br>
+  <input type="submit" value="Submit">  
+  </center>
+</form>
+
+</body>
+</html>
